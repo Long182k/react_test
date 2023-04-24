@@ -14,7 +14,7 @@ export default function App() {
       .then((response) => response.json())
 
       .then((data) => {
-        const formattedData = data.map((user) => {
+        const formattedData = data.map((user: any) => {
           // *// Format date_of_birth to dd-mm-yyyy*
 
           const dateOfBirth = new Date(user.date_of_birth);
@@ -50,7 +50,7 @@ export default function App() {
 
             date_of_birth: formattedDateOfBirth,
 
-            age: age
+            age: age,
           };
         });
 
@@ -58,28 +58,28 @@ export default function App() {
       });
   }, []);
 
-  const handleSortByChange = (event) => {
+  const handleSortByChange = (event: any) => {
     const sortBy = event.target.value;
 
     setSortBy(sortBy);
   };
 
-  const handleSearchTermChange = (event) => {
+  const handleSearchTermChange = (event: any) => {
     const searchTerm = event.target.value;
 
     setSearchTerm(searchTerm);
   };
 
   const filteredUsers = users.filter((user) =>
-    Object.values(user).some((value) =>
+    Object.values(user).some((value: any) =>
       value.toString().toLowerCase().includes(searchTerm.toLowerCase())
     )
   );
 
   if (sortBy === "name") {
-    filteredUsers.sort((a, b) => (a.username > b.username ? 1 : -1));
+    filteredUsers.sort((a: any, b: any) => (a.username > b.username ? 1 : -1));
   } else if (sortBy === "birthday-day") {
-    filteredUsers.sort((a, b) => {
+    filteredUsers.sort((a: any, b: any) => {
       const aDay = parseInt(a.date_of_birth.substring(0, 2));
 
       const bDay = parseInt(b.date_of_birth.substring(0, 2));
@@ -87,7 +87,7 @@ export default function App() {
       return aDay - bDay;
     });
   } else if (sortBy === "birthday-month") {
-    filteredUsers.sort((a, b) => {
+    filteredUsers.sort((a: any, b: any) => {
       const aMonth = parseInt(a.date_of_birth.substring(3, 5));
 
       const bMonth = parseInt(b.date_of_birth.substring(3, 5));
@@ -95,7 +95,7 @@ export default function App() {
       return aMonth - bMonth;
     });
   } else if (sortBy === "birthday-year") {
-    filteredUsers.sort((a, b) => {
+    filteredUsers.sort((a: any, b: any) => {
       const aYear = parseInt(a.date_of_birth.substring(6, 10));
 
       const bYear = parseInt(b.date_of_birth.substring(6, 10));
@@ -155,7 +155,7 @@ export default function App() {
         </thead>
 
         <tbody>
-          {filteredUsers.map((user, index) => (
+          {filteredUsers.map((user: any, index) => (
             <tr key={index}>
               <td>{index + 1}</td>
 
@@ -171,7 +171,7 @@ export default function App() {
 
           {filteredUsers.length === 0 && (
             <tr>
-              <td colSpan="5">No results found.</td>
+              <td colSpan={5}>No results found.</td>
             </tr>
           )}
         </tbody>
